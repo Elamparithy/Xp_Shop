@@ -1,0 +1,47 @@
+<div>
+  <h1 style="color:chocolate">Items in your cart : <span style="margin-left:35%;color:greenyellow">Total cart Value :{{allTotal}}</span></h1>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered row-border hover" style="width:100%">
+    <thead class="text-center thead-dark">
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>price</th>
+        <th>quantity</th>
+        <th>Add/Remove</th>
+        <th>Total for Item</th>
+        <th>Remove Item</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of productAddedToCart; let q = index" class="text-center">
+        <td><img [src]="product.imageUrl" *ngIf="product.imageUrl" style="float:right" width="75" /></td>
+        <td>{{product.name | uppercase}}</td>
+        <td>{{product.price | currency: 'CAD':'symbol-narrow':'.2'}}</td>
+        <td>{{product.Quantity}}</td>
+
+        <td>
+          <div class="form-inline">
+            <button type="button" (click)="onAddQuantity(product)"><i class="fas fa-list"></i></button>
+            <input type="number" [ngModel]="product.Quantity" (ngModelChange)="product.Quantity=$event" class=" form-contr" />
+            <button type="button" (click)="onRemoveQuantity(product)"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </td>
+        <td>{{product.price * product.Quantity}}</td>
+        <td><button (click)="onRemove(product)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+      </tr>
+      <h2>{{allTotal}}</h2>
+    </tbody>
+    <tfoot>
+     
+      <tr>
+        <td><a class="btn btn-warning" [routerLink]='["/products"]'><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a class="btn btn-success btn-block" [routerLink]='["/checkout"]'>Checkout <i class="fa fa-angle-right"></i></a></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
